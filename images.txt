@@ -1,0 +1,5 @@
+mysql
+nginx
+whyour/qinglong
+whyour/qinglong:debian
+ghcr.io/immich-app/immich-machine-learning:release-openvino

@@ -1,0 +1,45 @@
+name: Sync Docker Images
+
+on:
+  schedule:
+    - cron: '0 2 * * *'  # 每天UTC时间2点运行
+  workflow_dispatch:     # 允许手动触发
+  push:
+    branches:
+      - main
+    paths:
+      - 'images.txt' # 修改images.txt时触发
+jobs:
+  sync-images:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+        
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests
+
+    - name: Install skopeo
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y skopeo
+
+    - name: Login to docker.cnb.cool with skopeo
+      run: |
+        skopeo login -u cnb docker.cnb.cool -p ${{ secrets.DOCKER_REGISTRY_TOKEN }}
+
+    - name: Run image sync
+      env:
+        DOCKER_REGISTRY_TOKEN: ${{ secrets.DOCKER_REGISTRY_TOKEN }}
+        DOCKER_REGISTRY_GROUP: ${{ secrets.DOCKER_REGISTRY_GROUP }}
+      run: |
+        python docker_image_sync.py
+        
