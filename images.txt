@@ -1,3 +1,4 @@
+amilys/embyserver:beta
 cloudflare/cloudflared
 caddy
 dockurr/windows
