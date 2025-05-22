@@ -1,1 +1,2 @@
+dockurr/windows
 jxxghp/moviepilot-v2:latest
