@@ -1,2 +1,3 @@
 dockurr/windows
+dockurr/macos
 jxxghp/moviepilot-v2:latest
