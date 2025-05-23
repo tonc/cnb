@@ -1,8 +1,9 @@
+6053537/portainer-ce:latest
 amilys/embyserver:beta
-cloudflare/cloudflared
-caddy
-dockurr/windows
-dockurr/macos
+amilys/embyserver:latest
+cloudflare/cloudflared:latest
+caddy:latest
+dockurr/windows:latest
+dockurr/macos:latest
 jxxghp/moviepilot-v2:latest
-amilys/embyserver
-allanpk716/chinesesubfinder
+allanpk716/chinesesubfinder:latest
