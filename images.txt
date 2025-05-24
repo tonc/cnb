@@ -1,3 +1,4 @@
+xhofe/alist:latest
 6053537/portainer-ce:latest
 amilys/embyserver:beta
 amilys/embyserver:latest
