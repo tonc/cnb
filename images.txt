@@ -1,3 +1,4 @@
+linkease/kspeeder:latest
 linuxserver/qbittorrent:latest
 linuxserver/transmission:latest
 amilys/embyserver:latest
