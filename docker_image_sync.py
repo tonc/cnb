@@ -97,9 +97,16 @@ def process_image_line(line):
     elif len(parts) == 2:  # whyour/qinglong
         repo = parts[0]
         dest = f'docker.cnb.cool/{CONFIG["group"]}/{parts[0]}/{parts[1]}'
-    else:  # ghcr.io/tonc/qinglong
+    elif len(parts) == 3:  # ghcr.io/tonc/qinglong
         repo = parts[1]
         dest = f'docker.cnb.cool/{CONFIG["group"]}/{parts[1]}/{"/".join(parts[2:])}'
+    elif len(parts) == 4:
+        repo = parts[2]
+        dest = f'docker.cnb.cool/{CONFIG["group"]}/{parts[2]}/{"/".join(parts[3:])}'
+    
+    # else:  # ghcr.io/tonc/qinglong
+    #     repo = parts[1]
+    #     dest = f'docker.cnb.cool/{CONFIG["group"]}/{parts[1]}/{"/".join(parts[2:])}'
     
     ensure_repo_exists(repo)
     return (line, dest)
