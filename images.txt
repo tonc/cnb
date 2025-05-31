@@ -1,7 +1,12 @@
 jeessy/ddns-go:latest
-us-central1-docker.pkg.dev/google-samples/microservices-demo/adservice:v0.10.2
-us-central1-docker.pkg.dev/google-samples/microservices-demo/cartservice:v0.10.2
 us-central1-docker.pkg.dev/google-samples/microservices-demo/checkoutservice:v0.10.2
+us-central1-docker.pkg.dev/google-samples/microservices-demo/emailservice:v0.10.2
+us-central1-docker.pkg.dev/google-samples/microservices-demo/frontend:v0.10.2
+us-central1-docker.pkg.dev/google-samples/microservices-demo/loadgenerator:v0.10.2
+us-central1-docker.pkg.dev/google-samples/microservices-demo/paymentservice:v0.10.2
+us-central1-docker.pkg.dev/google-samples/microservices-demo/productcatalogservice:v0.10.2
+us-central1-docker.pkg.dev/google-samples/microservices-demo/recommendationservice:v0.10.2
+us-central1-docker.pkg.dev/google-samples/microservices-demo/shippingservice:v0.10.2
 mybtjson/pixman-4gtv:0.0.8
 linkease/kspeeder:latest
 linuxserver/qbittorrent:latest
