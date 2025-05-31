@@ -1,4 +1,4 @@
-us-central1-docker.pkg.dev/google-samples/microservices-demo/cartservice:v0.10.2
+mybtjson/pixman-4gtv:0.0.8
 linkease/kspeeder:latest
 linuxserver/qbittorrent:latest
 linuxserver/transmission:latest
