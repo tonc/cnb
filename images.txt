@@ -1,3 +1,5 @@
+postgres:16
+joplin/server:latest
 jeessy/ddns-go:latest
 us-central1-docker.pkg.dev/google-samples/microservices-demo/adservice:v0.10.2
 us-central1-docker.pkg.dev/google-samples/microservices-demo/cartservice:v0.10.2
