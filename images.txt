@@ -1,3 +1,4 @@
+xhongc/music_tag_web:latest
 codeskyblue/atxserver2-android-provider:latest
 postgres:16
 joplin/server:latest
