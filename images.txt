@@ -1,3 +1,7 @@
+drumsergio/genieacs:latest
+mongo:8.0
+drumsergio/genieacs-sim:latest
+drumsergio/genieacs-mcp:latest
 emby/embyserver:latest
 xhongc/music_tag_web:latest
 codeskyblue/atxserver2-android-provider:latest
