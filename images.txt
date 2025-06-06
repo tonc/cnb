@@ -1,3 +1,4 @@
+mysql:8.0.36
 drumsergio/genieacs:latest
 mongo:8.0
 drumsergio/genieacs-sim:latest
