@@ -1,3 +1,4 @@
+metacubex/mihomo:latest
 boredazfcuk/icloudpd:latest
 snowdreamtech/frps:latest
 snowdreamtech/frpc:latest
