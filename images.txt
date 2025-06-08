@@ -1,3 +1,4 @@
+boredazfcuk/icloudpd:latest
 snowdreamtech/frps:latest
 snowdreamtech/frpc:latest
 whyour/qinglong:latest
