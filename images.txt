@@ -1,3 +1,4 @@
+docker.osgeo.org/geoserver:2.28.x
 metacubex/mihomo:latest
 boredazfcuk/icloudpd:latest
 snowdreamtech/frps:latest
