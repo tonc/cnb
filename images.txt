@@ -1,3 +1,4 @@
+kartoza/geoserver:latest
 prom/prometheus:latest
 grafana/grafana-enterprise:latest
 youshandefeiyang/allinone
