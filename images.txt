@@ -1,3 +1,4 @@
+ghcr.io/cinnamon/kotaemon:main-full
 kartoza/geoserver:latest
 prom/prometheus:latest
 grafana/grafana-enterprise:latest
