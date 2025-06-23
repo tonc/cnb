@@ -1,3 +1,4 @@
+haierkeys/obsidian-image-api-gateway:latest
 ghcr.io/cinnamon/kotaemon:main-full
 kartoza/geoserver:latest
 prom/prometheus:latest
