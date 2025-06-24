@@ -1,3 +1,4 @@
+ookvip/ikuai-monitor:latest
 lscr.io/linuxserver/swag:latest
 haierkeys/obsidian-image-api-gateway:latest
 ghcr.io/cinnamon/kotaemon:main-full
