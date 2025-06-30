@@ -1,5 +1,5 @@
 mysql:8.0
-prom/mysqld_exporter
+prom/mysqld_exporter:latest
 grafana/grafana
 ossrs/oryx:5.15.20
 roderickchan/debug_pwn_env:18.04-2.27-3ubuntu1.6-20230213
