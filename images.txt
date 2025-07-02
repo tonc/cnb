@@ -55,7 +55,6 @@ containrrr/watchtower:latest
 allanpk716/chinesesubfinder:latest
 jxxghp/moviepilot-v2:latest
 mzz2017/v2raya
-xprobe/xinference:latest
 xhofe/alist:latest
 6053537/portainer-ce:latest
 cloudflare/cloudflared:latest
