@@ -59,27 +59,89 @@ def ensure_repo_exists(repo):
         logger.error(f"仓库操作失败: {repo} - {str(e)}")
         raise
 
+# def copy_image(src, dest):
+#     """使用skopeo复制镜像"""
+#     try:
+#         cmd = [
+#             "skopeo", "copy", "--all",
+#             "--retry-times", "3",
+#             f'docker://{src}',
+#             f'docker://{dest}'
+#         ]
+#         logger.info(f"复制中: {src} -> {dest}")
+#         result = subprocess.run(
+#             cmd,
+#             check=True,
+#             stdout=subprocess.PIPE,
+#             stderr=subprocess.PIPE,
+#             text=True
+#         )
+#         logger.debug(f"命令输出:\n{result.stdout}")
+#         return True
+#     except subprocess.CalledProcessError as e:
+#         logger.error(f"复制失败: {src}\n{e.stderr}")
+#         return False
+
 def copy_image(src, dest):
-    """使用skopeo复制镜像"""
+    """使用skopeo复制镜像，排除windows平台"""
     try:
-        cmd = [
-            "skopeo", "copy", "--all",
-            "--retry-times", "3",
-            f'docker://{src}',
-            f'docker://{dest}'
-        ]
-        logger.info(f"复制中: {src} -> {dest}")
-        result = subprocess.run(
-            cmd,
+        # 获取镜像的所有平台信息
+        inspect_cmd = ["skopeo", "inspect", "--raw", f"docker://{src}"]
+        inspect_result = subprocess.run(
+            inspect_cmd,
             check=True,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
-            text=True
+            text=False  # 返回二进制数据
         )
-        logger.debug(f"命令输出:\n{result.stdout}")
+        manifest_data = json.loads(inspect_result.stdout)
+
+        # 提取所有平台信息
+        platforms = []
+        for manifest in manifest_data.get("manifests", []):
+            os_platform = manifest.get("platform", {})
+            os_name = os_platform.get("os", "")
+            architecture = os_platform.get("architecture", "")
+            platform_str = f"{os_name}/{architecture}"
+            platforms.append(platform_str)
+
+        # 过滤掉windows平台
+        filtered_platforms = [p for p in platforms if not p.startswith("windows/")]
+
+        if not filtered_platforms:
+            logger.error(f"没有可复制平台（全部被排除）: {src}")
+            return False
+
+        # 对每个平台执行复制
+        success = True
+        for platform in filtered_platforms:
+            logger.info(f"复制平台: {platform} - {src} -> {dest}")
+            copy_cmd = [
+                "skopeo", "copy", "--all",
+                "--retry-times", "3",
+                "--platform", platform,
+                f"docker://{src}",
+                f"docker://{dest}"
+            ]
+            copy_result = subprocess.run(
+                copy_cmd,
+                check=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True
+            )
+            logger.debug(f"平台复制输出:\n{copy_result.stdout}")
+
         return True
+
     except subprocess.CalledProcessError as e:
         logger.error(f"复制失败: {src}\n{e.stderr}")
+        return False
+    except json.JSONDecodeError as e:
+        logger.error(f"解析镜像清单失败: {src} - {str(e)}")
+        return False
+    except Exception as e:
+        logger.error(f"复制过程中发生未知错误: {src} - {str(e)}")
         return False
 
 def process_image_line(line):
