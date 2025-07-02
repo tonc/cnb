@@ -1,4 +1,3 @@
-mongo:8.0
 mysql:8.0
 prom/mysqld_exporter:latest
 grafana/grafana
