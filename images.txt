@@ -1,3 +1,4 @@
+instituteiptv/iptv-4gtv:latest
 containers.mathworks.com/simulink-sim-service:r2024b
 corentinth/it-tools:nightly
 corentinth/it-tools
