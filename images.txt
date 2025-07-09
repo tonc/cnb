@@ -1,3 +1,4 @@
+ubuntu:latest
 xkand/istoreos:latest
 ossrs/oryx:5.15.20
 instituteiptv/iptv-4gtv:latest
