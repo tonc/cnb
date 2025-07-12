@@ -64,6 +64,5 @@ mzz2017/v2raya
 xhofe/alist:latest
 6053537/portainer-ce:latest
 cloudflare/cloudflared:latest
-caddy:latest
 dockurr/windows:latest
 dockurr/macos:latest
