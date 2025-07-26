@@ -1,3 +1,4 @@
+youshandefeiyang/allinone:latest
 btpanel/baota:lnmp
 gdy666/lucky
 ab11fht/agxorin:whisper-r36.4.0-whisper
