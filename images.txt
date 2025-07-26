@@ -1,3 +1,4 @@
+easychen/cookiecloud
 youshandefeiyang/allinone:latest
 btpanel/baota:lnmp
 gdy666/lucky
