@@ -1,3 +1,4 @@
+fooololo/aipan-netdisk-search:latest
 easychen/cookiecloud
 youshandefeiyang/allinone:latest
 btpanel/baota:lnmp
