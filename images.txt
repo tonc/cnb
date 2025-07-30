@@ -5,7 +5,6 @@ youshandefeiyang/allinone:latest
 btpanel/baota:lnmp
 gdy666/lucky
 ab11fht/agxorin:whisper-r36.4.0-whisper
-polarisxq/scurm:nav_tutorial
 ubuntu:latest
 xkand/istoreos:latest
 ossrs/oryx:5.15.20
