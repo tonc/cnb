@@ -1,4 +1,4 @@
-linzeyi/hivision_idphoto
+linzeyi/hivision_idphotos:latest
 zerotier/zerotier
 bitnami/redis:8.0
 bitnami/elasticsearch:8.18.0
