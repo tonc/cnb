@@ -1,3 +1,4 @@
+networkstatic/iperf3
 linzeyi/hivision_idphotos:latest
 zerotier/zerotier
 bitnami/redis:8.0
