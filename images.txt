@@ -1,3 +1,8 @@
+caddy:2.8.4
+openjdk:8-jdk
+redis:6-alpine
+mysql:8.0.23
+elasticsearch-ik:7.12.1
 blowsnow/n8n-chinese
 mcr.microsoft.com/windows/servercore:ltsc2016
 nginx
