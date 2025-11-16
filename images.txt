@@ -1,3 +1,4 @@
+homeassistant/home-assistant:latest
 public.ecr.aws/gravitational/teleport-distroless:18.3.1
 caddy:2.8.4
 openjdk:8-jdk
