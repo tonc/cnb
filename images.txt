@@ -1,3 +1,4 @@
+blowsnow/n8n-chinese
 homeassistant/home-assistant:latest
 public.ecr.aws/gravitational/teleport-distroless:18.3.1
 caddy:2.8.4
