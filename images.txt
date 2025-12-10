@@ -1,4 +1,3 @@
-rlinf/rlinf:agentic-rlinf0.1-torch2.6.0-openvla-openvlaoft-pi0
 docker.elastic.co/elasticsearch/elasticsearch:7.17.13
 blowsnow/n8n-chinese
 homeassistant/home-assistant:latest
