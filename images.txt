@@ -1,3 +1,4 @@
+photoprism/photoprism:latest
 docker.elastic.co/elasticsearch/elasticsearch:7.17.13
 blowsnow/n8n-chinese
 homeassistant/home-assistant:latest
