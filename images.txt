@@ -1,3 +1,4 @@
+zyplayer/zyplayer-doc
 mysql:8.0.44
 blowsnow/n8n-chinese
 caddy
