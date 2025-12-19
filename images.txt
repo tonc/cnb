@@ -1,4 +1,3 @@
-registry.cn-hangzhou.aliyuncs.com/lhrbest/oracle_12cr2_ee_lhr_12.2.0.1:2.0
 blowsnow/n8n-chinese
 caddy
 xkand/dind:latest
