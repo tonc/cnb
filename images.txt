@@ -1,5 +1,4 @@
-zyplayer/zyplayer-doc
-mysql:8.0.44
+develop767/migu_video:latest
 blowsnow/n8n-chinese
 caddy
 xkand/dind:latest
