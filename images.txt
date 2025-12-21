@@ -1,3 +1,4 @@
+ghcr.io/lunatechlab/moontv:latest
 develop767/migu_video:latest
 blowsnow/n8n-chinese
 caddy
