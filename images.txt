@@ -1,4 +1,4 @@
-ghcr.io/senshinya/moontv:sha-a5a4e9f
+dockurr/windows
 develop767/migu_video:latest
 blowsnow/n8n-chinese
 caddy
