@@ -1,3 +1,14 @@
-python:3.12-slim
-mysql:8.0
-postgres:15
+lscr.io/linuxserver/plex:latest
+dockurr/windows
+develop767/migu_video:latest
+blowsnow/n8n-chinese
+caddy
+xkand/dind:latest
+xkand/istoreos:latest
+xkand/tmdb_hosts:latest
+metacubex/mihomo:latest
+whyour/qinglong:latest
+whyour/qinglong:debian
+containrrr/watchtower:latest
+jxxghp/moviepilot-v2:latest
+mzz2017/v2raya
