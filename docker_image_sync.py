@@ -63,8 +63,8 @@ def copy_image(src, dest):
     """使用skopeo复制镜像"""
     try:
         cmd = [
-            "skopeo", "copy", "--all",
-            # "skopeo", "copy",
+            # "skopeo", "copy", "--all",
+            "skopeo", "copy",
             "--retry-times", "3",
             f'docker://{src}',
             f'docker://{dest}'
