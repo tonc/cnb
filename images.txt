@@ -1,4 +1,4 @@
-lscr.io/linuxserver/plex:latest
+jeessy/ddns-go
 dockurr/windows
 develop767/migu_video:latest
 blowsnow/n8n-chinese
