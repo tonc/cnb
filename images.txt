@@ -1,3 +1,4 @@
+onlyoffice/documentserver:9.2.0.1
 jeessy/ddns-go
 dockurr/windows
 develop767/migu_video:latest
