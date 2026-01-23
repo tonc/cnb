@@ -1,3 +1,4 @@
+metacubex/mihomo:latest
 snowdreamtech/frps
 snowdreamtech/frpc
 amilys/embyserver:latest
@@ -10,7 +11,6 @@ caddy
 xkand/dind:latest
 xkand/istoreos:latest
 xkand/tmdb_hosts:latest
-metacubex/mihomo:latest
 whyour/qinglong:latest
 whyour/qinglong:debian
 containrrr/watchtower:latest
