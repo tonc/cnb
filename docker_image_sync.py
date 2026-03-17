@@ -68,7 +68,7 @@ def ensure_repo_exists(repo):
 def copy_image(src, dest):
     """使用skopeo复制镜像"""
     manifests = get_all_manifests(src)
-    for i in manifests:
+    for i in manifests['manifests']:
         os = i['platform']['os']
         if os == 'linux':
             arch = i['annotations']['com.docker.official-images.bashbrew.arch']
