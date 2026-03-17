@@ -1,14 +1,14 @@
-# name: Sync Docker Images
+name: Sync Docker Images
 
-# on:
-#   schedule:
-#     - cron: '0 2 * * *'  # 每天UTC时间2点运行
-#   workflow_dispatch:     # 允许手动触发
-#   push:
-#     branches:
-#       - main
-#     paths:
-#       - 'images.txt' # 修改images.txt时触发
+on:
+  schedule:
+    - cron: '0 2 * * *'  # 每天UTC时间2点运行
+  workflow_dispatch:     # 允许手动触发
+  push:
+    branches:
+      - main
+    paths:
+      - 'images.txt' # 修改images.txt时触发
 # jobs:
 #   sync-images:
 #     runs-on: ubuntu-latest
