@@ -42,4 +42,8 @@ jobs:
         DOCKER_REGISTRY_GROUP: ${{ secrets.DOCKER_REGISTRY_GROUP }}
       run: |
         python docker_image_sync.py
+    - name: Check skopeo version
+      run: |
+        which skopeo
+        skopeo --version
         
