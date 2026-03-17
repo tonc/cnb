@@ -71,6 +71,8 @@ def copy_image(src, dest):
             f'docker://{src}',
             f'docker://{dest}'
         ]
+        import shlex
+        print('我在这里', shlex.join(cmd))
         logger.info(f"复制中: {src} -> {dest}")
         result = subprocess.run(
             cmd,
