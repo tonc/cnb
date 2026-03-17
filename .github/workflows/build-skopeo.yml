@@ -1,0 +1,92 @@
+name: Build Latest Skopeo
+
+# 触发条件：手动触发 / 每周一自动构建
+on:
+  workflow_dispatch:  # 手动触发
+  schedule:
+    - cron: '0 0 * * 1'  # 每周一 UTC 0点自动构建
+
+# 权限配置（最小权限原则）
+permissions:
+  contents: read
+  packages: write
+  actions: read
+  artifacts: write
+
+jobs:
+  build-skopeo:
+    name: Build Skopeo (${{ matrix.arch }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [amd64, arm64]  # 编译两种主流架构
+
+    steps:
+      # 步骤1：检出 Skopeo 源码（最新主分支）
+      - name: Checkout Skopeo Source
+        uses: actions/checkout@v4
+        with:
+          repository: containers/skopeo
+          ref: main
+          path: skopeo
+
+      # 步骤2：设置系统依赖（安装编译所需库）
+      - name: Install Dependencies
+        run: |
+          sudo apt update && sudo apt install -y \
+            gcc \
+            make \
+            libgpgme-dev \
+            libassuan-dev \
+            libbtrfs-dev \
+            libdevmapper-dev \
+            pkg-config \
+            go-md2man \
+            qemu-user-static  # 跨架构编译依赖（arm64 编译需要）
+
+      # 步骤3：配置 Go 环境（Skopeo 编译必需）
+      - name: Set Up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22.x'  # Skopeo 推荐的 Go 版本
+          cache: true
+          cache-dependency-path: skopeo/go.mod
+
+      # 步骤4：跨架构编译 Skopeo
+      - name: Build Skopeo Binary
+        run: |
+          cd skopeo
+          # 设置跨架构编译环境变量
+          if [ "${{ matrix.arch }}" = "arm64" ]; then
+            export GOARCH=arm64
+            export CGO_ENABLED=1
+            export CC=aarch64-linux-gnu-gcc
+            sudo apt install -y gcc-aarch64-linux-gnu
+          else
+            export GOARCH=amd64
+          fi
+          # 编译二进制（输出到 bin 目录）
+          make binary
+          # 验证编译产物
+          file ./skopeo
+          ./skopeo --version
+
+      # 步骤5：上传编译产物为 Action 制品
+      - name: Upload Skopeo Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: skopeo-linux-${{ matrix.arch }}
+          path: skopeo/skopeo
+          retention-days: 30  # 制品保留30天
+
+      # （可选）步骤6：将二进制推送到 GitHub Packages（方便长期存储）
+      - name: Push to GitHub Packages
+        if: github.ref == 'refs/heads/main'  # 仅主分支推送
+        run: |
+          # 重命名二进制
+          mv skopeo/skopeo skopeo-linux-${{ matrix.arch }}
+          # 推送为 GitHub Release 资产（需先创建 Release）
+          gh release upload "latest-skopeo" skopeo-linux-${{ matrix.arch }} --clobber
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
