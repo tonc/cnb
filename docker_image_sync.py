@@ -71,7 +71,6 @@ def copy_image(src, dest):
     for i in manifests['manifests']:
         os = i['platform']['os']
         if os == 'linux':
-            arch = i['annotations']['com.docker.official-images.bashbrew.arch']
             digest = i['digest']
             try:
                 cmd = [
@@ -80,7 +79,7 @@ def copy_image(src, dest):
                     f'docker://{src}@{digest}',
                     f'docker://{dest}'
                 ]
-                logger.info(f"复制中: {arch} - {src} -> {dest}")
+                logger.info(f"复制中: {src} -> {dest}")
                 result = subprocess.run(
                     cmd,
                     check=True,
@@ -91,7 +90,7 @@ def copy_image(src, dest):
                 logger.debug(f"命令输出:\n{result.stdout}")
                 return True
             except subprocess.CalledProcessError as e:
-                logger.error(f"复制失败: {arch} - {src}\n{e.stderr}")
+                logger.error(f"复制失败: {src}\n{e.stderr}")
                 return False
 
 def process_image_line(line):
