@@ -67,31 +67,32 @@ def ensure_repo_exists(repo):
 
 def copy_image(src, dest):
     """使用skopeo复制镜像"""
-    manifests = get_all_manifests(src)
-    for i in manifests['manifests']:
-        os = i['platform']['os']
-        if os == 'linux':
-            digest = i['digest']
-            try:
-                cmd = [
-                    "skopeo", "copy", "--all",
-                    "--retry-times", "3",
-                    f'docker://{src}@{digest}',
-                    f'docker://{dest}'
-                ]
-                logger.info(f"复制中: {src} -> {dest}")
-                result = subprocess.run(
-                    cmd,
-                    check=True,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.PIPE,
-                    text=True
-                )
-                logger.debug(f"命令输出:\n{result.stdout}")
-                return True
-            except subprocess.CalledProcessError as e:
-                logger.error(f"复制失败: {src}\n{e.stderr}")
-                return False
+    # manifests = get_all_manifests(src)
+    # for i in manifests['manifests']:
+    #     os = i['platform']['os']
+    #     if os == 'linux':
+    #         digest = i['digest']
+    try:
+        cmd = [
+            "skopeo", "copy", "--all",
+            "--retry-times", "3",
+            # f'docker://{src}@{digest}',
+            f'docker://{src}',
+            f'docker://{dest}'
+        ]
+        logger.info(f"复制中: {src} -> {dest}")
+        result = subprocess.run(
+            cmd,
+            check=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True
+        )
+        logger.debug(f"命令输出:\n{result.stdout}")
+        return True
+    except subprocess.CalledProcessError as e:
+        logger.error(f"复制失败: {src}\n{e.stderr}")
+        return False
 
 def process_image_line(line):
     """处理单行镜像定义"""
