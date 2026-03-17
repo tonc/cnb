@@ -1,171 +1,3 @@
-# #!/usr/bin/env python3
-# """
-# Docker镜像同步脚本 - GitHub Actions专用版
-# 严格保持路径转换逻辑：
-# mysql -> docker.cnb.cool/group/mysql
-# mysql:5.7 -> docker.cnb.cool/group/mysql:5.7
-# whyour/qinglong -> docker.cnb.cool/group/whyour/qinglong
-# ghcr.io/tonc/qinglong -> docker.cnb.cool/group/tonc/qinglong
-# """
-
-# import os
-# import sys
-# import json
-# import requests
-# import subprocess
-# import logging
-# from pathlib import Path
-
-# # 配置日志
-# logging.basicConfig(
-#     level=logging.INFO,
-#     format='%(asctime)s - %(levelname)s - %(message)s',
-#     handlers=[logging.StreamHandler()]
-# )
-# logger = logging.getLogger('docker-sync')
-
-# # 从环境变量获取配置
-# CONFIG = {
-#     'token': os.getenv('DOCKER_REGISTRY_TOKEN'),
-#     'group': os.getenv('DOCKER_REGISTRY_GROUP')
-# }
-
-# HEADERS = {
-#     'accept': 'application/json',
-#     'Authorization': CONFIG['token'],
-#     'Content-Type': 'application/json'
-# }
-
-# def ensure_repo_exists(repo):
-#     """确保目标仓库存在"""
-#     json_data = {
-#         'description': 'Auto-created by sync tool',
-#         'license': 'MIT',
-#         'name': repo,
-#         'visibility': 'public'
-#     }
-#     try:
-#         response = requests.post(
-#             f'https://api.cnb.cool/{CONFIG["group"]}/-/repos',
-#             headers=HEADERS,
-#             json=json_data
-#         )
-#         if response.status_code == 409:
-#             logger.info(f"仓库已存在: {repo}")
-#         else:
-#             response.raise_for_status()
-#             logger.info(f"已创建仓库: {repo}")
-#     except Exception as e:
-#         logger.error(f"仓库操作失败: {repo} - {str(e)}")
-#         raise
-
-# def copy_image(src, dest):
-#     """使用skopeo复制镜像"""
-#     try:
-#         cmd = [
-#             "skopeo", "copy", "--all",
-#             # 只保留 amd64 和 arm64 平台
-#             "--filter", "platform=linux/amd64",
-#             "--filter", "platform=linux/arm64",
-#             "--retry-times", "3",
-#             f'docker://{src}',
-#             f'docker://{dest}'
-#         ]
-#         import shlex
-#         print('我在这里', shlex.join(cmd))
-#         logger.info(f"复制中: {src} -> {dest}")
-#         result = subprocess.run(
-#             cmd,
-#             check=True,
-#             stdout=subprocess.PIPE,
-#             stderr=subprocess.PIPE,
-#             text=True
-#         )
-#         logger.debug(f"命令输出:\n{result.stdout}")
-#         return True
-#     except subprocess.CalledProcessError as e:
-#         logger.error(f"复制失败: {src}\n{e.stderr}")
-#         return False
-
-# def process_image_line(line):
-#     """处理单行镜像定义"""
-#     line = line.strip()
-#     if not line:
-#         return None
-
-#     parts = line.split('/')
-    
-#     # 确定目标路径
-#     if len(parts) == 1:  # mysql 或 mysql:5.7
-#         repo = parts[0].split(':')[0]
-#         dest = f'docker.cnb.cool/{CONFIG["group"]}/{parts[0]}'
-#     elif len(parts) == 2:  # whyour/qinglong
-#         repo = parts[0]
-#         dest = f'docker.cnb.cool/{CONFIG["group"]}/{parts[0]}/{parts[1]}'
-#     elif len(parts) == 3:  # ghcr.io/tonc/qinglong
-#         repo = parts[1]
-#         dest = f'docker.cnb.cool/{CONFIG["group"]}/{parts[1]}/{"/".join(parts[2:])}'
-#     elif len(parts) == 4:
-#         repo = parts[2]
-#         dest = f'docker.cnb.cool/{CONFIG["group"]}/{parts[2]}/{"/".join(parts[3:])}'
-    
-#     # else:  # ghcr.io/tonc/qinglong
-#     #     repo = parts[1]
-#     #     dest = f'docker.cnb.cool/{CONFIG["group"]}/{parts[1]}/{"/".join(parts[2:])}'
-    
-#     ensure_repo_exists(repo)
-#     return (line, dest)
-
-# def main():
-#     """主执行逻辑"""
-#     try:
-#         # 验证配置
-#         if not all(CONFIG.values()):
-#             raise ValueError("必须设置 DOCKER_REGISTRY_TOKEN 和 DOCKER_REGISTRY_GROUP 环境变量")
-
-#         # 处理镜像列表
-#         image_file = Path('images.txt')
-#         if not image_file.exists():
-#             raise FileNotFoundError("缺少 images.txt 文件")
-
-#         with open(image_file) as f:
-#             images = [line.strip() for line in f if line.strip()]
-        
-#         if not images:
-#             logger.warning("镜像列表为空")
-#             return
-
-#         success = 0
-#         for line in images:
-#             # 去除行首尾空白字符
-#             line = line.strip()
-
-#             # 跳过空行和注释行
-#             if not line or line.startswith('#'):
-#                 continue
-                
-#             try:
-#                 result = process_image_line(line)
-#                 if not result:
-#                     continue
-                
-#                 src, dest = result
-#                 if copy_image(src, dest):
-#                     success += 1
-#             except Exception as e:
-#                 logger.error(f"处理镜像失败: {line} - {str(e)}")
-
-#         # logger.info(f"同步完成: 成功 {success}/{len(images)}")
-#         # if success != len(images):
-#         #     sys.exit(1)
-
-#     except Exception as e:
-#         logger.error(f"执行失败: {str(e)}")
-#         sys.exit(1)
-
-# if __name__ == '__main__':
-#     main()
-
 #!/usr/bin/env python3
 """
 Docker镜像同步脚本 - GitHub Actions专用版
@@ -204,6 +36,12 @@ HEADERS = {
     'Content-Type': 'application/json'
 }
 
+def get_all_manifests(image):
+    out = subprocess.check_output(
+        ["skopeo", "inspect", "--raw", f"docker://{image}"]
+    )
+    return json.loads(out)
+
 def ensure_repo_exists(repo):
     """确保目标仓库存在"""
     json_data = {
@@ -227,85 +65,22 @@ def ensure_repo_exists(repo):
         logger.error(f"仓库操作失败: {repo} - {str(e)}")
         raise
 
-def get_image_platforms(image):
-    """获取镜像支持的所有平台"""
-    try:
-        cmd = ["skopeo", "inspect", "--raw", f'docker://{image}']
-        result = subprocess.run(
-            cmd,
-            capture_output=True,
-            text=True,
-            timeout=60
-        )
-        if result.returncode == 0:
-            data = json.loads(result.stdout)
-            manifests = data.get('manifests', [])
-            platforms = []
-            for m in manifests:
-                platform_info = m.get('platform', {})
-                os_arch = f"{platform_info.get('os', 'unknown')}/{platform_info.get('architecture', 'unknown')}"
-                if 'variant' in platform_info:
-                    os_arch += f"/{platform_info['variant']}"
-                platforms.append(os_arch)
-            return platforms
-        return None
-    except Exception as e:
-        logger.debug(f"获取平台信息失败: {image} - {str(e)}")
-        return None
-
-def get_non_windows_platforms(image):
-    """获取非Windows平台的列表"""
-    platforms = get_image_platforms(image)
-    if not platforms:
-        return None
-    non_windows = [p for p in platforms if not p.lower().startswith('windows')]
-    return non_windows if non_windows else None
-
 def copy_image(src, dest):
-    """使用skopeo复制镜像，只复制非Windows平台"""
-    non_windows_platforms = get_non_windows_platforms(src)
-
-    if not non_windows_platforms:
-        logger.warning(f"无可用非Windows平台，跳过: {src}")
-        return False
-
-    try:
-        # 如果只有一个非Windows平台，直接复制
-        if len(non_windows_platforms) == 1:
-            platform = non_windows_platforms[0]
-            cmd = [
-                "skopeo", "copy",
-                "--retry-times", "3",
-                "--platform", platform,
-                f'docker://{src}',
-                f'docker://{dest}'
-            ]
-            import shlex
-            print('我在这里', shlex.join(cmd))
-            logger.info(f"复制中 [{platform}]: {src} -> {dest}")
-            result = subprocess.run(
-                cmd,
-                check=True,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                text=True
-            )
-            logger.debug(f"命令输出:\n{result.stdout}")
-            return True
-        else:
-            # 多个平台，逐个复制
-            success = True
-            for platform in non_windows_platforms:
+    """使用skopeo复制镜像"""
+    manifests = get_all_manifests(src)
+    for i in manifests:
+        os = i['platform']['os']
+        if os == 'linux':
+            arch = i['annotations']['com.docker.official-images.bashbrew.arch']
+            digest = i['digest']
+            try:
                 cmd = [
-                    "skopeo", "copy",
+                    "skopeo", "copy", "--all",
                     "--retry-times", "3",
-                    "--platform", platform,
-                    f'docker://{src}',
+                    f'docker://{src}@{digest}',
                     f'docker://{dest}'
                 ]
-                import shlex
-                print('我在这里', shlex.join(cmd))
-                logger.info(f"复制中 [{platform}]: {src} -> {dest}")
+                logger.info(f"复制中: {arch} - {src} -> {dest}")
                 result = subprocess.run(
                     cmd,
                     check=True,
@@ -314,10 +89,10 @@ def copy_image(src, dest):
                     text=True
                 )
                 logger.debug(f"命令输出:\n{result.stdout}")
-            return success
-    except subprocess.CalledProcessError as e:
-        logger.error(f"复制失败: {src}\n{e.stderr}")
-        return False
+                return True
+            except subprocess.CalledProcessError as e:
+                logger.error(f"复制失败: {arch} - {src}\n{e.stderr}")
+                return False
 
 def process_image_line(line):
     """处理单行镜像定义"""
