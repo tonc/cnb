@@ -64,7 +64,9 @@ def copy_image(src, dest):
     try:
         cmd = [
             "skopeo", "copy", "--all",
-            # "skopeo", "copy",
+            # 只保留 amd64 和 arm64 平台
+            "--filter", "platform=linux/amd64",
+            "--filter", "platform=linux/arm64",
             "--retry-times", "3",
             f'docker://{src}',
             f'docker://{dest}'
