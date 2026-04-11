@@ -1,3 +1,6 @@
+node:20.20.1
+alpine:latest
+golang:1.25.8
 metacubex/mihomo:latest
 snowdreamtech/frps
 snowdreamtech/frpc
