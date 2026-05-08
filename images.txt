@@ -1,3 +1,4 @@
+linuxserver/qbittorrent
 nickfedor/watchtower
 mzz2017/v2raya
 debian:latest
