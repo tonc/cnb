@@ -1,3 +1,5 @@
+gogoshine/capcut-mate:latest
+gogoshine/linux:latest
 linuxserver/qbittorrent
 nickfedor/watchtower
 mzz2017/v2raya
