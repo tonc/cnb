@@ -1,3 +1,4 @@
+xkand/123pan
 gogoshine/capcut-mate:latest
 gogoshine/linux:latest
 linuxserver/qbittorrent
