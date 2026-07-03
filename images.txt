@@ -1,3 +1,4 @@
+openlistteam/openlist:latest-aio
 xkand/123pan
 gogoshine/capcut-mate:latest
 gogoshine/linux:latest
