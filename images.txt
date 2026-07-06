@@ -1,3 +1,4 @@
+mzz2017/v2raya:v2.2.7.5
 ponphil/litepan:latest
 openlistteam/openlist:latest-aio
 xkand/123pan
