@@ -1,3 +1,9 @@
+registry.cn-shanghai.aliyuncs.com/zhinian-software/xianyu-mysql:8.0
+registry.cn-shanghai.aliyuncs.com/zhinian-software/xianyu-redis:7-alpine
+registry.cn-shanghai.aliyuncs.com/zhinian-software/xianyu-backend-web:latest
+registry.cn-shanghai.aliyuncs.com/zhinian-software/xianyu-websocket:latest
+registry.cn-shanghai.aliyuncs.com/zhinian-software/xianyu-scheduler:latest
+registry.cn-shanghai.aliyuncs.com/zhinian-software/xianyu-frontend:latest
 python:3.12-slim
 mzz2017/v2raya:v2.2.7.5
 ponphil/litepan:latest
