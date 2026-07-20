@@ -1,3 +1,4 @@
+homeassistant/home-assistant
 registry.cn-shanghai.aliyuncs.com/zhinian-software/xianyu-mysql:8.0
 registry.cn-shanghai.aliyuncs.com/zhinian-software/xianyu-redis:7-alpine
 registry.cn-shanghai.aliyuncs.com/zhinian-software/xianyu-backend-web:latest
