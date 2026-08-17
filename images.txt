@@ -19,7 +19,6 @@ mzz2017/v2raya
 debian:latest
 node:20.20.1
 alpine:latest
-golang:1.25.8
 metacubex/mihomo:latest
 snowdreamtech/frps
 snowdreamtech/frpc
@@ -29,7 +28,6 @@ jeessy/ddns-go
 dockurr/windows
 develop767/migu_video:latest
 blowsnow/n8n-chinese
-caddy
 xkand/dind:latest
 xkand/istoreos:latest
 xkand/tmdb_hosts:latest
