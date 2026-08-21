@@ -1,3 +1,4 @@
+hanxi/cups-web:latest
 jxxghp/moviepilot-v3:latest
 homeassistant/home-assistant
 registry.cn-shanghai.aliyuncs.com/zhinian-software/xianyu-mysql:8.0
