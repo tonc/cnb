@@ -74,7 +74,7 @@ def copy_image(src, dest):
     #         digest = i['digest']
     try:
         cmd = [
-            "skopeo", "copy", "--all",
+            "skopeo", "copy",
             "--retry-times", "3",
             # f'docker://{src}@{digest}',
             f'docker://{src}',
