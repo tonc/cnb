@@ -1,3 +1,4 @@
+vllm/vllm-omni:qwen-image21
 hanxi/cups-web:latest
 jxxghp/moviepilot-v3:latest
 homeassistant/home-assistant
