@@ -1,8 +1,8 @@
 name: Sync Docker Images
 
 on:
-  schedule:
-    - cron: '0 2 * * *'  # 每天UTC时间2点运行
+  # schedule:
+    # - cron: '0 2 * * *'  # 每天UTC时间2点运行
   workflow_dispatch:     # 允许手动触发
   push:
     branches:
